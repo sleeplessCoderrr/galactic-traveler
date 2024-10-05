@@ -11,6 +11,7 @@ public class App {
 
     public void run(){
         while(true){
+            Utils.spacer(20);
             menu();
             int input = Utils.getIntInput();
             if(input == 5) break;
@@ -25,10 +26,12 @@ public class App {
                 createTraveler();
                 break;
             case 2:
+                updateTraveller();
                 break;
             case 3:
                 break;
             case 4:
+                showAllTravelers();
                 break;
             case 5:
                 break;
@@ -51,7 +54,7 @@ public class App {
     }
 
     private void createTraveler(){
-        Utils.spacer(10);
+        Utils.spacer(20);
         String name;
         Integer id;
 
@@ -61,11 +64,75 @@ public class App {
         System.out.print("Input Traveler Name (3-30 chars): ");
         name = Utils.getNameInput();
 
-        Traveller traveller = new Traveller(id, name);
-        travellerList.add(traveller);
+        if(Utils.isUniqueName(travellerList, name)){
+            Traveller traveller = new Traveller(id, name);
+            travellerList.add(traveller);
+            return;
+        } else {
+            System.out.println("Name Already Taken!");
+            Utils.delayer();
+        }
 
         return;
     }
 
+    private void showAllTravelers(){
+        Utils.spacer(20);
+        if(travellerList.size() == 0) {
+            System.out.println("=====================================================");
+            System.out.println("||              No Traveler Registered             ||");
+            System.out.println("=====================================================");
+        } else {
+            int i = 1;
+            System.out.println("=================================================");
+            System.out.printf("|| %-3s | %-12s | %-22s ||\n", "No", "Traveller ID", "Traveller Name");
+            System.out.println("=================================================");
+            for(Traveller traveller :  travellerList){
+                System.out.printf("|| %-3d | %-12d | %-22s ||\n"
+                , i, traveller.getTravellerID(), traveller.getName());
+            }
+            System.out.println("=================================================");
+        } 
+
+        Utils.delayer();
+        return;
+    }
+
+    private void updateTraveller(){
+        Utils.spacer(20);
+        if(travellerList.size()==0){
+            System.out.println("=====================================================");
+            System.out.println("||              No Traveler Registered             ||");
+            System.out.println("=====================================================");
+            Utils.delayer();
+            return;
+        } else {
+            showAllTravelers();
+            Utils.spacer(1);
+            System.out.print("Which traveler do you want to update? (Enter 0 to return to the main menu): ");
+            String id = Utils.getStringInput();
+            if(Utils.isAnyTraveller(travellerList, id)){
+                System.out.print("Input new Traveler ID (1-9999): ");
+                Integer newId = Utils.getIdInput();
+                Utils.spacer(20);
+                System.out.println("Traveler Updated!");
+                for(Traveller traveller : travellerList){
+                    if(traveller.getTravellerID().equals(newId)){
+                        System.out.println("============================================");
+                        System.out.printf("|| %-12s | %-22s ||\n",  "Traveller ID", "Traveller Name");
+                        System.out.println("============================================");
+                        System.out.printf("|| %-12d | %-22s ||\n", traveller.getTravellerID(), traveller.getName());
+                        System.out.println("============================================");
+                    }
+                }
+                Utils.delayer();
+            } else {
+                System.out.println("No traveller found!");
+                Utils.delayer();
+                return;
+            }
+        }
+        return;
+    }
 	
 }

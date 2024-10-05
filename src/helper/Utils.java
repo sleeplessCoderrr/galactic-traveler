@@ -61,4 +61,21 @@ public class Utils {
         scan.nextLine();
         return input;
     }
+
+    public static String getStringInput(){
+        return scan.nextLine();
+    }
+
+    public static String delayer(){
+        spacer(1);
+        System.out.println("Press Enter to continue...");
+        return scan.nextLine();
+    }
+
+    public static Boolean isAnyTraveller(ArrayList<Traveller> travellers, String text){
+        for(Traveller traveller : travellers){
+            if(traveller.getName().equals(text)) return true;
+        }
+        return false;
+    }
 }
