@@ -66,15 +66,21 @@ public class Utils {
         return scan.nextLine();
     }
 
+    public static Integer getIntegerInput(){
+        Integer input = scan.nextInt();
+        scan.nextLine();
+        return input;
+    }
+
     public static String delayer(){
         spacer(1);
         System.out.println("Press Enter to continue...");
         return scan.nextLine();
     }
 
-    public static Boolean isAnyTraveller(ArrayList<Traveller> travellers, String text){
+    public static Boolean isAnyTraveller(ArrayList<Traveller> travellers, Integer input){
         for(Traveller traveller : travellers){
-            if(traveller.getName().equals(text)) return true;
+            if(traveller.getTravellerID() == input) return true;
         }
         return false;
     }
