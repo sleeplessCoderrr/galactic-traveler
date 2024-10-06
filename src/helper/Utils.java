@@ -7,22 +7,27 @@ import entities.Traveller;
 public class Utils {
     private static Scanner scan = new Scanner(System.in);
 
-    public static String getNameInput(){
+    public static String getNameInput() {
         String name = null;
-        Boolean isNameValid = false;
-        while(!isNameValid){
+        boolean isNameValid = false;
+
+        while (!isNameValid) {
             try {
+                System.out.print("Input Traveler Name (3-30 chars): ");
                 name = scan.nextLine();
-                if(name.isEmpty()){
-                    throw new IllegalArgumentException("Cannot be empty!");
-                } else if(name.length() < 3 || name.length() > 30){
-                    throw new IllegalArgumentException("The length should between 3 and 30 characters: ");
+
+                if (name.isEmpty()) {
+                    throw new IllegalArgumentException("Name cannot be empty!");
+                } else if (name.length() < 3 || name.length() > 30) {
+                    throw new IllegalArgumentException("The name length should be between 3 and 30 characters.");
                 }
+
                 isNameValid = true;
-            } catch (Exception e) {
-                e.printStackTrace();
+            } catch (IllegalArgumentException e) {
+                System.out.println("Error: " + e.getMessage()); // Show the error message
             }
         }
+
         return name;
     }
 
@@ -33,22 +38,30 @@ public class Utils {
         return true;
     }
 
-    public static Integer getIdInput(){
+    public static Integer getIdInput() {
         Integer id = null;
-        Boolean isValidId = false;
-        while(!isValidId){
+        boolean isValidId = false;
+
+        while (!isValidId) {
+            System.out.print("Enter a valid ID (1-9999): ");
             try {
-                id = scan.nextInt();
-                scan.nextLine();
-                if(id < 1 || id > 9999){
-                    throw new IllegalArgumentException("ID must between 1 and 9999");
+                if (!scan.hasNextInt()) {
+                    throw new IllegalArgumentException("Input must be an integer!");
                 }
+                id = scan.nextInt();
+                scan.nextLine(); 
+                
+                if (id < 1 || id > 9999) {
+                    throw new IllegalArgumentException("ID must be between 1 and 9999.");
+                }
+
                 isValidId = true;
-            } catch (Exception e) {
-               e.printStackTrace();
+            } catch (IllegalArgumentException e) {
+                System.out.println("Error: " + e.getMessage());
+                scan.nextLine(); 
             }
         }
-        
+
         return id;
     }
 

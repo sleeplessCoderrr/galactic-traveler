@@ -60,10 +60,7 @@ public class App {
         String name;
         Integer id;
 
-        System.out.print("Input Traveler ID (1-9999): ");
         id = Utils.getIdInput();
-
-        System.out.print("Input Traveler Name (3-30 chars): ");
         name = Utils.getNameInput();
 
         if(Utils.isUniqueName(travellerList, name)){
